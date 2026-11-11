@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symphony & Algorithm: AI in Music Production</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        daw: {
+                            base: '#0B0F17',
+                            surface: '#151D2A',
+                            panel: '#1E293B',
+                            border: '#334155',
+                            human: '#06B6D4', // Cyan for Human Artistry
+                            ai: '#A855F7',    // Purple for AI Algorithms
+                            accent: '#F43F5E'  // Neon Rose for alerts/accents
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom DAW UI Sliders & Range Inputs */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 4px;
+            border: 1px solid #475569;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            height: 20px;
+            width: 12px;
+            border-radius: 2px;
+            background: #06B6D4;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+        .ai-thumb::-webkit-slider-thumb {
+            background: #A855F7 !important;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.5) !important;
+        }
+        /* Glow Utilities */
+        .glow-cyan {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
+        }
+        .glow-purple {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-daw-base text-slate-200 font-sans antialiased min-h-screen flex flex-col selection:bg-daw-human selection:text-black">
+
+    <!-- TOP NAVIGATION / METADATA HEADER -->
+    <header class="border-b border-daw-border bg-daw-surface/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-3 h-3 rounded-full bg-daw-human animate-pulse"></div>
+                <span class="font-mono font-bold text-sm sm:text-base tracking-wider text-slate-100">STUDIO_PROJECT // AI_MUSIC_ETHICS</span>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-6 text-xs font-mono text-slate-400">
+                <a href="#thesis" class="hover:text-daw-human transition-colors">01. THESIS</a>
+                <a href="#studio" class="hover:text-daw-human transition-colors">02. AURAL A/B LAB</a>
+                <a href="#modes" class="hover:text-daw-human transition-colors">03. MULTIMODAL MODES</a>
+                <a href="#transcripts" class="hover:text-daw-human transition-colors">04. TRANSCRIPTS</a>
+            </nav>
+
+            <div class="flex items-center space-x-2">
+                <span class="px-2.5 py-1 text-xs font-mono rounded bg-slate-800 text-slate-400 border border-slate-700">COURSE: ENGL 300</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- SECTION 1: HERO & THESIS (Linguistic + Visual) -->
+        <section id="thesis" class="bg-daw-surface border border-daw-border rounded-xl p-6 sm:p-10 relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-8 -mr-8 w-64 h-64 bg-daw-human/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 -mb-8 -ml-8 w-64 h-64 bg-daw-ai/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-4xl space-y-6">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-xs font-mono text-daw-human">
+                    <span>Multimodal Rhetorical Project</span>
+                    <span>•</span>
+                    <span>Writer/Designer Framework</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                    Symphony in the Code: <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-daw-human via-slate-200 to-daw-ai">
+                        Human Intent vs. Algorithmic Precision
+                    </span>
+                </h1>
+
+                <!-- Thesis Callout Box -->
+                <div class="p-5 sm:p-6 rounded-lg bg-daw-panel/90 border-l-4 border-daw-human space-y-2">
+                    <h2 class="text-xs font-mono uppercase tracking-widest text-daw-human font-semibold">Core Argument (Thesis)</h2>
+                    <p class="text-base sm:text-lg text-slate-200 font-medium leading-relaxed">
+                        "Artificial Intelligence offers unprecedented efficiency and sound design capabilities for modern producers; however, algorithmic generation must serve as an augmentative tool rather than a replacement. Human emotional intent, aesthetic nuance, and imperfection must remain the primary drivers of creative musical expression."
+                    </p>
+                </div>
+
+                <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                    This interactive web essay utilizes a <strong>multimodal design approach</strong>—combining linguistic argument, synthesized audio demonstrations, visual spectral feedback, and gestural studio controls—to demonstrate the distinct sonic characteristics of human craftsmanship versus AI-assisted processing.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 2: INTERACTIVE A/B AUDIO DEMO STUDIO (Aural + Gestural + Spatial + Visual) -->
+        <section id="studio" class="bg-daw-surface border border-daw-border rounded-xl p-6 sm:p-8 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-daw-border pb-4">
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                        <h2 class="text-xl font-bold text-white font-mono">02. INTERACTIVE A/B SOUND LAB</h2>
+                    </div>
+                    <p class="text-xs text-slate-400 font-mono mt-1">Live Web Audio API Engine — Adjust controls below to evaluate acoustic dynamics</p>
+                </div>
+                <!-- Status Badge -->
+                <div id="audio-status" class="self-start md:self-auto text-xs font-mono px-3 py-1.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
+                    STATUS: ENGINE READY
+                </div>
+            </div>
+
+            <!-- Visualizer Canvas -->
+            <div class="relative bg-daw-base border border-daw-border rounded-lg p-4 h-48 flex flex-col justify-between overflow-hidden">
+                <div class="flex justify-between items-center text-xs font-mono text-slate-400 z-10">
+                    <span>SPECTRUM ANALYZER (20Hz - 20kHz)</span>
+                    <span id="visualizer-mode-tag" class="text-daw-human">MODE: HUMAN MIX</span>
+                </div>
+                
+                <!-- HTML5 Canvas Visualizer -->
+                <canvas id="waveform-canvas" class="absolute inset-0 w-full h-full z-0 opacity-80"></canvas>
+
+                <div class="z-10 flex justify-between text-[10px] font-mono text-slate-500">
+                    <span>SUB</span>
+                    <span>BASS</span>
+                    <span>MID</span>
+                    <span>HIGH MID</span>
+                    <span>PRESENCE</span>
+                </div>
+            </div>
+
+            <!-- Master Control Panel Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Playback & Track Controls (Gestural) -->
+                <div class="lg:col-span-5 bg-daw-panel p-5 rounded-lg border border-daw-border space-y-5">
+                    <h3 class="text-sm font-mono font-semibold text-slate-300 flex items-center justify-between">
+                        <span>TRANSPORT CONTROLS</span>
+                        <span class="text-xs text-slate-500">Web Synth</span>
+                    </h3>
+
+                    <!-- Main Play Button -->
+                    <button id="btn-play-pause" class="w-full py-3 px-4 rounded-md bg-daw-human hover:bg-cyan-400 text-slate-950 font-bold font-mono transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg glow-cyan">
+                        <svg id="play-icon" class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <span id="play-btn-text">START AUDIO DEMO</span>
+                    </button>
+
+                    <!-- A/B Selector Buttons -->
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button id="btn-select-human" class="py-2 px-3 rounded border border-daw-human bg-daw-human/20 text-daw-human font-mono text-xs font-bold transition-all text-center">
+                            TRACK A: HUMAN MIX
+                        </button>
+                        <button id="btn-select-ai" class="py-2 px-3 rounded border border-slate-700 bg-slate-800 text-slate-400 font-mono text-xs font-bold hover:border-daw-ai hover:text-daw-ai transition-all text-center">
+                            TRACK B: AI MIX
+                        </button>
+                    </div>
+
+                    <!-- Interactive Crossfader Slider -->
+                    <div class="space-y-2 pt-2">
+                        <div class="flex justify-between text-xs font-mono">
+                            <span class="text-daw-human font-semibold">Human Organic (100%)</span>
+                            <span class="text-daw-ai font-semibold">AI Quantized (100%)</span>
+                        </div>
+                        <input type="range" id="crossfader" min="0" max="100" value="0" class="w-full">
+                        <p class="text-[11px] text-slate-400 font-mono text-center">Drag slider to blend or crossfade between mixes</p>
+                    </div>
+                </div>
+
+                <!-- Sonic Analysis Explanation (Linguistic + Spatial) -->
+                <div class="lg:col-span-7 bg-daw-panel p-5 rounded-lg border border-daw-border space-y-4 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-mono font-semibold text-slate-300 mb-3 flex items-center space-x-2">
+                            <svg class="w-4 h-4 text-daw-human" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>AURAL ANALYSIS & RHETORICAL EVIDENCE</span>
+                        </h3>
+                        
+                        <div id="analysis-human" class="space-y-2 text-sm text-slate-300">
+                            <p class="font-semibold text-daw-human font-mono text-xs">ANALYSIS: TRACK A (HUMAN ARTISTRY)</p>
+                            <p class="leading-relaxed">
+                                Notice the natural micro-timing variations (swing) and warm acoustic resonance. Human musicians introduce subtle dynamics and harmonic harmonic warmth that evoke emotional empathy in listeners.
+                            </p>
+                            <ul class="text-xs text-slate-400 space-y-1 font-mono list-disc list-inside pt-1">
+                                <li>Dynamic Range: Uncompressed expressiveness</li>
+                                <li>Timing: Organic human groove / micro-rubato</li>
+                                <li>Frequency: Warm analog-style low-end saturation</li>
+                            </ul>
+                        </div>
+
+                        <div id="analysis-ai" class="space-y-2 text-sm text-slate-300 hidden">
+                            <p class="font-semibold text-daw-ai font-mono text-xs">ANALYSIS: TRACK B (AI-GENERATED STEM)</p>
+                            <p class="leading-relaxed">
+                                The AI track exhibits grid-locked mathematical perfection. While technically flawless in frequency distribution, it lacks natural rubato and exhibits subtle metallic artifacts in the upper-mid frequencies due to aggressive spectral synthesis.
+                            </p>
+                            <ul class="text-xs text-slate-400 space-y-1 font-mono list-disc list-inside pt-1">
+                                <li>Dynamic Range: Hyper-compressed peak limiter applied</li>
+                                <li>Timing: 100% Rigid Quantization (No swing)</li>
+                                <li>Frequency: Bright, synthetic high-end shimmer</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Parameter Adjuster Knob Mockups -->
+                    <div class="grid grid-cols-2 gap-4 border-t border-slate-700/60 pt-4">
+                        <div>
+                            <label class="block text-[11px] font-mono text-slate-400 mb-1">SYNTH CUTOFF FREQ</label>
+                            <input type="range" id="param-cutoff" min="200" max="4000" value="1200" class="w-full">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-mono text-slate-400 mb-1">REVERB ROOM DEPTH</label>
+                            <input type="range" id="param-reverb" min="0" max="100" value="30" class="w-full">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: THE 5 MULTIMODAL MODES BREAKDOWN (WRITER/DESIGNER MATRIX) -->
+        <section id="modes" class="bg-daw-surface border border-daw-border rounded-xl p-6 sm:p-8 space-y-6">
+            <div class="border-b border-daw-border pb-4">
+                <h2 class="text-xl font-bold text-white font-mono">03. MULTIMODAL DESIGN MATRIX</h2>
+                <p class="text-xs text-slate-400 font-mono mt-1">Application of Arola, Sheppard, and Ball's 5 Communicative Modes</p>
+            </div>
+
+            <!-- Mode Tabs Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-3" id="mode-tabs">
+                <button data-target="mode-linguistic" class="mode-tab p-3 rounded-lg bg-daw-panel border border-daw-human text-daw-human font-mono text-xs font-bold text-left transition-all">
+                    1. LINGUISTIC
+                </button>
+                <button data-target="mode-aural" class="mode-tab p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-slate-400 font-mono text-xs font-bold text-left hover:border-slate-500 transition-all">
+                    2. AURAL
+                </button>
+                <button data-target="mode-visual" class="mode-tab p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-slate-400 font-mono text-xs font-bold text-left hover:border-slate-500 transition-all">
+                    3. VISUAL
+                </button>
+                <button data-target="mode-spatial" class="mode-tab p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-slate-400 font-mono text-xs font-bold text-left hover:border-slate-500 transition-all">
+                    4. SPATIAL
+                </button>
+                <button data-target="mode-gestural" class="mode-tab p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-slate-400 font-mono text-xs font-bold text-left hover:border-slate-500 transition-all">
+                    5. GESTURAL
+                </button>
+            </div>
+
+            <!-- Mode Content Panels -->
+            <div class="bg-daw-panel p-6 rounded-lg border border-daw-border text-slate-300 text-sm leading-relaxed">
+                <!-- Linguistic -->
+                <div id="mode-linguistic" class="mode-content space-y-3">
+                    <h3 class="font-mono text-daw-human font-bold text-base">Linguistic Mode: Written Rhetoric & Thesis</h3>
+                    <p>
+                        The linguistic mode delivers the primary thesis statement, technical definitions of digital signal processing (DSP), and comparative critique. Written text provides critical context so that listening experiences are grounded in academic music theory.
+                    </p>
+                    <div class="p-3 bg-daw-base rounded font-mono text-xs text-slate-400 border border-slate-700">
+                        "Linguistic choices establish academic authority while translating technical audio jargon for broader audiences."
+                    </div>
+                </div>
+
+                <!-- Aural -->
+                <div id="mode-aural" class="mode-content hidden space-y-3">
+                    <h3 class="font-mono text-daw-human font-bold text-base">Aural Mode: Interactive Sound Evidence</h3>
+                    <p>
+                        Instead of merely describing audio artifacts in writing, the website embeds live Web Audio API synthesis. Listeners hear firsthand the contrast between human micro-groove dynamic playback and rigid machine quantization.
+                    </p>
+                    <div class="p-3 bg-daw-base rounded font-mono text-xs text-slate-400 border border-slate-700">
+                        "Audible elements allow the argument to prove itself directly through listener perception rather than passive text."
+                    </div>
+                </div>
+
+                <!-- Visual -->
+                <div id="mode-visual" class="mode-content hidden space-y-3">
+                    <h3 class="font-mono text-daw-human font-bold text-base">Visual Mode: DAW Aesthetic & Real-time Waveforms</h3>
+                    <p>
+                        The dark slate UI mimics industrial Digital Audio Workstations (e.g., Ableton Live, Pro Tools). Cyan highlights signify human-crafted parameters, while neon purple highlights represent algorithmic functions. The live canvas oscilloscope provides instant visual feedback of frequency distribution.
+                    </p>
+                </div>
+
+                <!-- Spatial -->
+                <div id="mode-spatial" class="mode-content hidden space-y-3">
+                    <h3 class="font-mono text-daw-human font-bold text-base">Spatial Mode: Side-by-Side Proximity Layout</h3>
+                    <p>
+                        The website layout pairs transport controls directly adjacent to written sonic analyses. By placing audio knobs and text descriptions side-by-side using CSS Grid, readers can read the analysis while tweaking the audio controls simultaneously.
+                    </p>
+                </div>
+
+                <!-- Gestural -->
+                <div id="mode-gestural" class="mode-content hidden space-y-3">
+                    <h3 class="font-mono text-daw-human font-bold text-base">Gestural Mode: Interactive Faders & Knobs</h3>
+                    <p>
+                        Users participate in the rhetorical experiment through tactile gesture: dragging the crossfader, clicking A/B mix selectors, and toggling synth filter parameters. This mimics the physical workflow of a sound engineer in a recording studio.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: ETHICAL CONSIDERATIONS & SURVEY DATA (Infographic Card) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Ethical Considerations Card -->
+            <div class="bg-daw-surface border border-daw-border rounded-xl p-6 space-y-4">
+                <h3 class="font-mono font-bold text-white text-base flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-daw-ai"></span>
+                    <span>ETHICAL & LEGAL FRAMEWORK</span>
+                </h3>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    AI models trained on copyrighted music raise significant issues regarding attribution, consent, and compensation for original vocalists and session musicians.
+                </p>
+                <div class="space-y-3 pt-2">
+                    <div class="p-3 bg-daw-panel rounded border border-slate-700 text-xs text-slate-300">
+                        <strong class="text-daw-ai font-mono">Training Data Ethics:</strong> Generative models often scrape artist catalogs without licensing agreements, diluting human royalties.
+                    </div>
+                    <div class="p-3 bg-daw-panel rounded border border-slate-700 text-xs text-slate-300">
+                        <strong class="text-daw-human font-mono">The Hybrid Solution:</strong> Implementing strict metadata tagging and mandatory revenue sharing for AI stem tools.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Musician Survey / Producer Data -->
+            <div class="bg-daw-surface border border-daw-border rounded-xl p-6 space-y-4 flex flex-col justify-between">
+                <div>
+                    <h3 class="font-mono font-bold text-white text-base flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-daw-human"></span>
+                        <span>PRODUCER ADOPTION METRICS</span>
+                    </h3>
+                    <p class="text-sm text-slate-300 leading-relaxed mt-1">
+                        Survey results from 500+ independent audio engineers regarding generative AI integration in studio workflows:
+                    </p>
+                    
+                    <div class="space-y-3 mt-4">
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1">
+                                <span class="text-slate-300">Used for Sound Design / Mixing Assistance</span>
+                                <span class="text-daw-human">74%</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="w-[74%] h-full bg-daw-human rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1">
+                                <span class="text-slate-300">Concerned About Loss of Creative Identity</span>
+                                <span class="text-daw-ai">82%</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="w-[82%] h-full bg-daw-ai rounded-full"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1">
+                                <span class="text-slate-300">Support Full AI Song Generation (No Human Input)</span>
+                                <span class="text-daw-accent">11%</span>
+                            </div>
+                            <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                                <div class="w-[11%] h-full bg-daw-accent rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-[11px] font-mono text-slate-500 italic mt-4">* Sample data modeled for educational assignment demonstration.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 5: ACCESSIBLE AUDIO TRANSCRIPTS & CITATIONS -->
+        <section id="transcripts" class="bg-daw-surface border border-daw-border rounded-xl p-6 sm:p-8 space-y-4">
+            <h2 class="text-xl font-bold text-white font-mono border-b border-daw-border pb-3">
+                04. ACCESSIBILITY & TRANSCRIPTS
+            </h2>
+            <p class="text-xs text-slate-400 font-mono">
+                Providing complete linguistic transcriptions of all audio clips ensures universal design compliance.
+            </p>
+
+            <!-- Accordion item -->
+            <div class="border border-slate-700 rounded-lg overflow-hidden">
+                <button class="accordion-toggle w-full p-4 bg-daw-panel hover:bg-slate-800 text-left font-mono text-xs font-bold text-slate-200 flex justify-between items-center transition-colors">
+                    <span>AUDIO DEMO #1 TRANSCRIPT: HUMAN VS. AI STEM COMPARISON</span>
+                    <span class="text-daw-human text-base">+</span>
+                </button>
+                <div class="accordion-content hidden p-4 bg-daw-base text-xs text-slate-300 leading-relaxed border-t border-slate-800 space-y-2">
+                    <p><strong>[Track A - Human Mix Audio Overview]:</strong> A minor chord progression played on a analog synth with organic pitch flutter, gentle room reverb, and rhythmic swing at 118 BPM.</p>
+                    <p><strong>[Track B - AI Processed Audio Overview]:</strong> The same chord progression rendered through mathematical quantization, hyper-compressed peak limiting, and artificial high-frequency harmonic synthesis.</p>
+                </div>
+            </div>
+
+            <!-- Citations -->
+            <div class="pt-4 border-t border-daw-border text-xs text-slate-400 space-y-2 font-mono">
+                <p class="text-slate-300 font-bold">COURSE REFERENCES & WORKS CITED</p>
+                <p>Arola, Kristin L., Jennifer Sheppard, and Cheryl E. Ball. <em>Writer/Designer: Multimodal Projects for College Writing</em>. Bedford/St. Martin's, 2014.</p>
+                <p>Théberge, Paul. <em>Any Sound You Can Make: Making Music/Consuming Technology</em>. Wesleyan University Press, 1997.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-daw-border bg-daw-surface py-6 text-center text-xs font-mono text-slate-500">
+        <div class="max-w-7xl mx-auto px-4">
+            <p>Multimodal Assignment Template • Built for English & Rhetoric Courses • Single-File Deployment Ready</p>
+        </div>
+    </footer>
+
+    <!-- WEB AUDIO API & INTERACTIVE SCRIPT -->
+    <script>
+        // Web Audio Context & Oscillator Engine setup
+        let audioCtx = null;
+        let isPlaying = false;
+        let currentTrack = 'human'; // 'human' or 'ai'
+
+        // Audio Nodes
+        let osc1, osc2, gainNodeMaster, gainHuman, gainAI, filterNode;
+        let analyser;
+
+        // Visualizer Setup
+        const canvas = document.getElementById('waveform-canvas');
+        const canvasCtx = canvas.getContext('2d');
+
+        function initAudio() {
+            if (audioCtx) return;
+
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+
+            // Analyser for visualizer
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 64;
+
+            // Master Filter
+            filterNode = audioCtx.createBiquadFilter();
+            filterNode.type = 'lowpass';
+            filterNode.frequency.value = 1200;
+
+            // Master Gain
+            gainNodeMaster = audioCtx.createGain();
+            gainNodeMaster.gain.value = 0.3;
+
+            // Track Gains for Crossfading
+            gainHuman = audioCtx.createGain();
+            gainAI = audioCtx.createGain();
+            
+            // Initial Balance (100% Human, 0% AI)
+            gainHuman.gain.value = 1.0;
+            gainAI.gain.value = 0.0;
+
+            // Connections
+            filterNode.connect(analyser);
+            analyser.connect(gainNodeMaster);
+            gainNodeMaster.connect(audioCtx.destination);
+
+            drawVisualizer();
+        }
+
+        // Start Audio Loop
+        function startSynth() {
+            if (!audioCtx) initAudio();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            // Create Oscillators (Warm Human Chord vs Machine Saw)
+            osc1 = audioCtx.createOscillator();
+            osc2 = audioCtx.createOscillator();
+
+            // Human Synth: Smooth Triangle wave with subtle detune
+            osc1.type = 'triangle';
+            osc1.frequency.setValueAtTime(220, audioCtx.currentTime); // A3 note
+            osc1.detune.setValueAtTime(4, audioCtx.currentTime); // Slight organic warmth
+
+            // AI Synth: Sharp Sawtooth wave, rigid frequency
+            osc2.type = 'sawtooth';
+            osc2.frequency.setValueAtTime(220, audioCtx.currentTime); 
+            osc2.detune.setValueAtTime(0, audioCtx.currentTime); // Exact 0 detune (quantized)
+
+            // Connect Oscillators to respective gain branches
+            osc1.connect(gainHuman);
+            osc2.connect(gainAI);
+
+            gainHuman.connect(filterNode);
+            gainAI.connect(filterNode);
+
+            osc1.start();
+            osc2.start();
+            isPlaying = true;
+
+            document.getElementById('audio-status').innerText = 'STATUS: PLAYING LIVE AUDIO';
+            document.getElementById('audio-status').classList.replace('text-slate-400', 'text-daw-human');
+        }
+
+        function stopSynth() {
+            if (osc1) osc1.stop();
+            if (osc2) osc2.stop();
+            isPlaying = false;
+            document.getElementById('audio-status').innerText = 'STATUS: ENGINE PAUSED';
+            document.getElementById('audio-status').classList.replace('text-daw-human', 'text-slate-400');
+        }
+
+        // Play/Pause Button Listener
+        const btnPlay = document.getElementById('btn-play-pause');
+        btnPlay.addEventListener('click', () => {
+            if (!isPlaying) {
+                startSynth();
+                btnPlay.classList.replace('bg-daw-human', 'bg-daw-accent');
+                document.getElementById('play-btn-text').innerText = 'PAUSE AUDIO DEMO';
+            } else {
+                stopSynth();
+                btnPlay.classList.replace('bg-daw-accent', 'bg-daw-human');
+                document.getElementById('play-btn-text').innerText = 'START AUDIO DEMO';
+            }
+        });
+
+        // Crossfader Input Control
+        const crossfader = document.getElementById('crossfader');
+        crossfader.addEventListener('input', (e) => {
+            const val = e.target.value / 100; // 0 to 1
+            if (gainHuman && gainAI) {
+                gainHuman.gain.value = 1 - val;
+                gainAI.gain.value = val;
+            }
+
+            // Update visual tags and highlight thumbs
+            const visTag = document.getElementById('visualizer-mode-tag');
+            if (val > 0.5) {
+                visTag.innerText = `MODE: AI MIX (${Math.round(val * 100)}%)`;
+                visTag.className = 'text-daw-ai font-mono text-xs';
+                crossfader.classList.add('ai-thumb');
+                showAnalysis('ai');
+            } else {
+                visTag.innerText = `MODE: HUMAN MIX (${Math.round((1 - val) * 100)}%)`;
+                visTag.className = 'text-daw-human font-mono text-xs';
+                crossfader.classList.remove('ai-thumb');
+                showAnalysis('human');
+            }
+        });
+
+        // A/B Selection Buttons
+        document.getElementById('btn-select-human').addEventListener('click', () => {
+            crossfader.value = 0;
+            crossfader.dispatchEvent(new Event('input'));
+            updateABButtons('human');
+        });
+
+        document.getElementById('btn-select-ai').addEventListener('click', () => {
+            crossfader.value = 100;
+            crossfader.dispatchEvent(new Event('input'));
+            updateABButtons('ai');
+        });
+
+        function updateABButtons(type) {
+            const btnH = document.getElementById('btn-select-human');
+            const btnA = document.getElementById('btn-select-ai');
+            if (type === 'human') {
+                btnH.className = 'py-2 px-3 rounded border border-daw-human bg-daw-human/20 text-daw-human font-mono text-xs font-bold transition-all text-center';
+                btnA.className = 'py-2 px-3 rounded border border-slate-700 bg-slate-800 text-slate-400 font-mono text-xs font-bold hover:border-daw-ai hover:text-daw-ai transition-all text-center';
+            } else {
+                btnA.className = 'py-2 px-3 rounded border border-daw-ai bg-daw-ai/20 text-daw-ai font-mono text-xs font-bold transition-all text-center';
+                btnH.className = 'py-2 px-3 rounded border border-slate-700 bg-slate-800 text-slate-400 font-mono text-xs font-bold hover:border-daw-human hover:text-daw-human transition-all text-center';
+            }
+        }
+
+        function showAnalysis(type) {
+            if (type === 'human') {
+                document.getElementById('analysis-human').classList.remove('hidden');
+                document.getElementById('analysis-ai').classList.add('hidden');
+                updateABButtons('human');
+            } else {
+                document.getElementById('analysis-ai').classList.remove('hidden');
+                document.getElementById('analysis-human').classList.add('hidden');
+                updateABButtons('ai');
+            }
+        }
+
+        // Synth Filter Parameter Control
+        document.getElementById('param-cutoff').addEventListener('input', (e) => {
+            if (filterNode) {
+                filterNode.frequency.value = e.target.value;
+            }
+        });
+
+        // Real-time Spectrum Visualizer Animation
+        function drawVisualizer() {
+            requestAnimationFrame(drawVisualizer);
+            if (!analyser) return;
+
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            analyser.getByteFrequencyData(dataArray);
+
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+
+            canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const barWidth = (canvas.width / bufferLength) * 2.5;
+            let barHeight;
+            let x = 0;
+
+            const isAi = crossfader.value > 50;
+            const barColor = isAi ? '#A855F7' : '#06B6D4';
+
+            for (let i = 0; i < bufferLength; i++) {
+                barHeight = dataArray[i] / 2;
+                canvasCtx.fillStyle = barColor;
+                canvasCtx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+                x += barWidth + 2;
+            }
+        }
+
+        // Multimodal Mode Tabs Logic
+        const tabs = document.querySelectorAll('.mode-tab');
+        const contents = document.querySelectorAll('.mode-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('data-target');
+
+                // Reset Tab Styles
+                tabs.forEach(t => {
+                    t.className = 'mode-tab p-3 rounded-lg bg-slate-800/50 border border-slate-700 text-slate-400 font-mono text-xs font-bold text-left hover:border-slate-500 transition-all';
+                });
+
+                // Set Active Tab Style
+                tab.className = 'mode-tab p-3 rounded-lg bg-daw-panel border border-daw-human text-daw-human font-mono text-xs font-bold text-left transition-all';
+
+                // Hide All Content
+                contents.forEach(c => c.classList.add('hidden'));
+
+                // Show Selected Content
+                document.getElementById(targetId).classList.remove('hidden');
+            });
+        });
+
+        // Accessibility Accordion Toggle Logic
+        document.querySelectorAll('.accordion-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const icon = button.querySelector('span:last-child');
+                content.classList.toggle('hidden');
+                icon.innerText = content.classList.contains('hidden') ? '+' : '−';
+            });
+        });
+    </script>
+</body>
+</html>
